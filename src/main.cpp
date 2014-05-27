@@ -73,7 +73,7 @@ map<uint256, set<uint256> > mapOrphanTransactionsByPrev;
 // Constant stuff for coinbase transactions we create:
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "NovaCoin Signed Message:\n";
+const string strMessageMagic = "Rimbit Signed Message:\n";
 
 // Settings
 int64 nTransactionFee = MIN_TX_FEE;
@@ -482,7 +482,7 @@ bool CTransaction::CheckTransaction() const
         if (txout.IsEmpty() && !IsCoinBase() && !IsCoinStake())
             return DoS(100, error("CTransaction::CheckTransaction() : txout empty for user transaction"));
 
-        // NovaCoin: enforce minimum output amount for user transactions until 1 May 2014 04:00:00 GMT
+        // Rimbit: enforce minimum output amount for user transactions until 1 May 2014 04:00:00 GMT
         if (!fTestNet && !IsCoinBase() && !txout.IsEmpty() && nTime < OUTPUT_SWITCH_TIME && txout.nValue < MIN_TXOUT_AMOUNT)
             return DoS(100, error("CTransaction::CheckTransaction() : txout.nValue below minimum"));
 
@@ -968,7 +968,7 @@ int64 GetProofOfWorkReward(unsigned int nBits)
     CBigNum bnTargetLimit = bnProofOfWorkLimit;
     bnTargetLimit.SetCompact(bnTargetLimit.GetCompact());
 
-    // NovaCoin: subsidy is cut in half every 64x multiply of PoW difficulty
+    // Rimbit: subsidy is cut in half every 64x multiply of PoW difficulty
     // A reasonably continuous curve is used to avoid shock to market
     // (nSubsidyLimit / nSubsidy) ** 6 == bnProofOfWorkLimit / bnTarget
     //
@@ -1012,7 +1012,7 @@ int64 GetProofOfStakeReward(int64 nCoinAge, unsigned int nBits, unsigned int nTi
         CBigNum bnTargetLimit = GetProofOfStakeLimit(0, nTime);
         bnTargetLimit.SetCompact(bnTargetLimit.GetCompact());
 
-        // NovaCoin: A reasonably continuous curve is used to avoid shock to market
+        // Rimbit: A reasonably continuous curve is used to avoid shock to market
 
         CBigNum bnLowerBound = 1 * CENT, // Lower interest bound is 1% per year
             bnUpperBound = bnRewardCoinYearLimit, // Upper interest bound is 100% per year
@@ -1615,8 +1615,8 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
     // Now that the whole chain is irreversibly beyond that time it is applied to all blocks except the
     // two in the chain that violate it. This prevents exploiting the issue against nodes in their
     // initial block download.
-    bool fEnforceBIP30 = true; // Always active in NovaCoin
-    bool fStrictPayToScriptHash = true; // Always active in NovaCoin
+    bool fEnforceBIP30 = true; // Always active in Rimbit
+    bool fStrictPayToScriptHash = true; // Always active in Rimbit
 
     //// issue here: it doesn't know the version
     unsigned int nTxPos;
@@ -2156,7 +2156,7 @@ bool CBlock::CheckBlock(bool fCheckPOW, bool fCheckMerkleRoot, bool fCheckSig) c
         if (!CheckCoinStakeTimestamp(GetBlockTime(), (int64)vtx[1].nTime))
             return DoS(50, error("CheckBlock() : coinstake timestamp violation nTimeBlock=%"PRI64d" nTimeTx=%u", GetBlockTime(), vtx[1].nTime));
 
-        // NovaCoin: check proof-of-stake block signature
+        // Rimbit: check proof-of-stake block signature
         if (fCheckSig && !CheckBlockSignature(true))
             return DoS(100, error("CheckBlock() : bad proof-of-stake block signature"));
     }
@@ -2179,7 +2179,7 @@ bool CBlock::CheckBlock(bool fCheckPOW, bool fCheckMerkleRoot, bool fCheckSig) c
         {
             bool checkEntropySig = (GetBlockTime() < ENTROPY_SWITCH_TIME);
 
-            // NovaCoin: check proof-of-work block signature
+            // Rimbit: check proof-of-work block signature
             if (checkEntropySig && !CheckBlockSignature(false))
                 return DoS(100, error("CheckBlock() : bad proof-of-work block signature"));
         }
@@ -2511,7 +2511,7 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock)
     return true;
 }
 
-// novacoin: attempt to generate suitable proof-of-stake
+// rimbit: attempt to generate suitable proof-of-stake
 bool CBlock::SignBlock(CWallet& wallet)
 {
     // if we are trying to sign
@@ -2626,7 +2626,7 @@ bool CheckDiskSpace(uint64 nAdditionalBytes)
         string strMessage = _("Warning: Disk space is low!");
         strMiscWarning = strMessage;
         printf("*** %s\n", strMessage.c_str());
-        uiInterface.ThreadSafeMessageBox(strMessage, "NovaCoin", CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+        uiInterface.ThreadSafeMessageBox(strMessage, "Rimbit", CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
         StartShutdown();
         return false;
     }
