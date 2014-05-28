@@ -15,7 +15,7 @@ using namespace std;
 // BitcoinMiner
 //
 
-string strMintMessage = "Stake miner suspended due to locked wallet.";
+string strMintMessage = "You cannot earn interest until you unlock your wallet.";
 string strMintWarning;
 
 extern unsigned int nMinerSleep;
@@ -355,7 +355,7 @@ CBlock* CreateNewBlock(CWallet* pwallet, bool fProofOfStake)
             printf("CreateNewBlock(): total size %"PRI64u"\n", nBlockSize);
 
         if (!fProofOfStake)
-            pblock->vtx[0].vout[0].nValue = GetProofOfWorkReward(pblock->nBits);
+            pblock->vtx[0].vout[0].nValue = GetProofOfWorkReward(pindexPrev->nHeight + 1);
 
         // Fill in header
         pblock->hashPrevBlock  = pindexPrev->GetBlockHash();

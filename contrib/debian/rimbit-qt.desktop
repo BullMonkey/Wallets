@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Rimbit
+Comment=Rimbit P2P Cryptocurrency
+Comment[fr]=Rimbit, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Rimbit, eşten eşe kriptografik sanal para birimi
+Exec=/usr/bin/rimbit-qt
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/bitcoin80.xpm
+MimeType=x-scheme-handler/rimbit;
+Categories=Office;

@@ -703,7 +703,7 @@ Address: %4
         <location line="+80"/>
         <location line="+86"/>
         <location line="+38"/>
-        <source>0.00 NVC</source>
+        <source>0.00 RBT</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1301,8 +1301,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+13"/>
-        <source>Mined balance that has not yet matured</source>
-        <translation>Mined balance that has not yet matured</translation>
+        <source>Balance that has not yet matured</source>
+        <translation>Balance that has not yet matured</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -2296,10 +2296,10 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message numerus="yes">
         <location line="+8"/>
-        <source>Mined balance will be available when it matures in %n more block(s)</source>
+        <source>Balance will be available when it matures in %n more block(s)</source>
         <translation>
-            <numerusform>Mined balance will be available when it matures in %n more block</numerusform>
-            <numerusform>Mined balance will be available when it matures in %n more blocks</numerusform>
+            <numerusform>Balance will be available when it matures in %n more block</numerusform>
+            <numerusform>Balance will be available when it matures in %n more blocks</numerusform>
         </translation>
     </message>
     <message>
@@ -2608,8 +2608,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="-28"/>
-        <source>Listen for connections on &lt;port&gt; (default: 7777 or testnet: 17777)</source>
-        <translation>Listen for connections on &lt;port&gt; (default: 8333 or testnet: 18333)</translation>
+        <source>Listen for connections on &lt;port&gt; (8708)</source>
+        <translation>Listen for connections on &lt;port&gt; (8708)</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2668,7 +2668,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+5"/>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 8344 or testnet: 18344)</source>
+        <source>Listen for JSON-RPC connections on &lt;port&gt; (8709)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

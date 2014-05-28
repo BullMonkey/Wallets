@@ -906,7 +906,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+80"/>
         <location line="+86"/>
         <location line="+38"/>
-        <source>0.00 NVC</source>
+        <source>0.00 RBT</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1307,7 +1307,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+13"/>
-        <source>Mined balance that has not yet matured</source>
+        <source>Balance that has not yet matured</source>
         <translation>Баланс добытых монет, который ещё не созрел</translation>
     </message>
     <message>
@@ -2306,7 +2306,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message numerus="yes">
         <location line="+8"/>
-        <source>Mined balance will be available when it matures in %n more block(s)</source>
+        <source>Balance will be available when it matures in %n more block(s)</source>
         <translation>
             <numerusform>Добытыми монетами можно будет воспользоваться через %n блок</numerusform>
             <numerusform>Добытыми монетами можно будет воспользоваться через %n блока</numerusform>
@@ -2620,8 +2620,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="-28"/>
-        <source>Listen for connections on &lt;port&gt; (default: 7777 or testnet: 17777)</source>
-        <translation>Принимать входящие подключения на &lt;port&gt; (по умолчанию: 7777 или 17777 в тестовой сети)</translation>
+        <source>Listen for connections on &lt;port&gt; (8708)</source>
+        <translation>Принимать входящие подключения на &lt;port&gt; (8708)</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2680,8 +2680,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+5"/>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 8344 or testnet: 18344)</source>
-        <translation>Прослушивать подключения JSON-RPC на &lt;порту&gt; (по умолчанию: 8344 или для testnet: 18344)</translation>
+        <source>Listen for JSON-RPC connections on &lt;port&gt; (8709)</source>
+        <translation>Прослушивать подключения JSON-RPC на &lt;порту&gt; (8709)</translation>
     </message>
     <message>
         <location line="+16"/>

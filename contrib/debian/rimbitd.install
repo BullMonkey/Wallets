@@ -1,0 +1,2 @@
+debian/bin/rimbitd usr/bin
+src/rimbitd usr/lib/rimbit

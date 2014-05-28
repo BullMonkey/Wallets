@@ -1,0 +1,11 @@
+[Protocol]
+exec=rimbit-qt '%u'
+protocol=rimbit
+input=none
+output=none
+helper=true
+listing=
+reading=false
+writing=false
+makedir=false
+deleting=false
