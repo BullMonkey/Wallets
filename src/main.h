@@ -80,6 +80,8 @@ extern std::set<CWallet*> setpwalletRegistered;
 extern unsigned char pchMessageStart[4];
 extern std::map<uint256, CBlock*> mapOrphanBlocks;
 
+extern bool disablePOW;
+
 // Settings
 extern int64 nTransactionFee;
 extern int64 nMinimumInputValue;

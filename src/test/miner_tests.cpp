@@ -5,6 +5,7 @@
 #include "uint256.h"
 #include "util.h"
 #include "wallet.h"
+#include "miner.h"
 
 extern void SHA256Transform(void* pstate, void* pinput, const void* pinit);
 
@@ -46,39 +47,45 @@ struct {
 };
 
 // NOTE: These tests rely on CreateNewBlock doing its own self-validation!
-BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
-{
-    CReserveKey reservekey(pwalletMain);
+BOOST_AUTO_TEST_CASE(CreateNewBlock_validity) {
     CBlock *pblock;
     CTransaction tx;
     CScript script;
     uint256 hash;
 
     // Simple block creation, nothing special yet:
-    BOOST_CHECK(pblock = CreateNewBlock(reservekey));
+    BOOST_CHECK(pblock = CreateNewBlock(pwalletMain));
+
+    // Disable POW for these simple blocks
+    disablePOW = true;
+
+    // Disable mock times to allow for wallet flushing to take place 
+    SetMockTime(0);
+
+    CReserveKey reserveKey(pwalletMain);
 
     // We can't make transactions until we have inputs
     // Therefore, load 100 blocks :)
     std::vector<CTransaction*>txFirst;
-    for (unsigned int i = 0; i < sizeof(blockinfo)/sizeof(*blockinfo); ++i)
-    {
+    for (unsigned int i = 0; i < sizeof(blockinfo)/sizeof(*blockinfo); ++i) {
         pblock->nVersion = 1;
-        pblock->nTime = pindexBest->GetMedianTimePast()+1;
+	// Make sure to set transaction time for peercoin
+        pblock->nTime = pblock->vtx[0].nTime = pindexBest->GetMedianTimePast()+1;
         pblock->vtx[0].vin[0].scriptSig = CScript();
-        pblock->vtx[0].vin[0].scriptSig.push_back(blockinfo[i].extranonce);
-        pblock->vtx[0].vin[0].scriptSig.push_back(pindexBest->nHeight);
-        pblock->vtx[0].vout[0].scriptPubKey = CScript();
+	pblock->vtx[0].vin[0].scriptSig = pblock->vtx[0].vin[0].scriptSig << pindexBest->nHeight + 1;
+        pblock->vtx[0].vin[0].scriptSig = pblock->vtx[0].vin[0].scriptSig << blockinfo[i].extranonce;
+	pblock->vtx[0].vout[0].scriptPubKey = CScript() << reserveKey.GetReservedKey() << OP_CHECKSIG;
         if (txFirst.size() < 2)
             txFirst.push_back(new CTransaction(pblock->vtx[0]));
         pblock->hashMerkleRoot = pblock->BuildMerkleTree();
         pblock->nNonce = blockinfo[i].nonce;
-        assert(ProcessBlock(NULL, pblock));
+        CheckWork(pblock, *pwalletMain, reserveKey);
         pblock->hashPrevBlock = pblock->GetHash();
     }
     delete pblock;
 
     // Just to make sure we can still make simple blocks
-    BOOST_CHECK(pblock = CreateNewBlock(reservekey));
+    BOOST_CHECK(pblock = CreateNewBlock(pwalletMain));
 
     // block sigops > limit: 1000 CHECKMULTISIG + 1
     tx.vin.resize(1);
@@ -95,7 +102,7 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
         mempool.addUnchecked(hash, tx);
         tx.vin[0].prevout.hash = hash;
     }
-    BOOST_CHECK(pblock = CreateNewBlock(reservekey));
+    BOOST_CHECK(pblock = CreateNewBlock(pwalletMain));
     delete pblock;
     mempool.clear();
 
@@ -115,14 +122,14 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
         mempool.addUnchecked(hash, tx);
         tx.vin[0].prevout.hash = hash;
     }
-    BOOST_CHECK(pblock = CreateNewBlock(reservekey));
+    BOOST_CHECK(pblock = CreateNewBlock(pwalletMain));
     delete pblock;
     mempool.clear();
 
     // orphan in mempool
     hash = tx.GetHash();
     mempool.addUnchecked(hash, tx);
-    BOOST_CHECK(pblock = CreateNewBlock(reservekey));
+    BOOST_CHECK(pblock = CreateNewBlock(pwalletMain));
     delete pblock;
     mempool.clear();
 
@@ -140,7 +147,7 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
     tx.vout[0].nValue = 5900000000LL;
     hash = tx.GetHash();
     mempool.addUnchecked(hash, tx);
-    BOOST_CHECK(pblock = CreateNewBlock(reservekey));
+    BOOST_CHECK(pblock = CreateNewBlock(pwalletMain));
     delete pblock;
     mempool.clear();
 
@@ -151,7 +158,7 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
     tx.vout[0].nValue = 0;
     hash = tx.GetHash();
     mempool.addUnchecked(hash, tx);
-    BOOST_CHECK(pblock = CreateNewBlock(reservekey));
+    BOOST_CHECK(pblock = CreateNewBlock(pwalletMain));
     delete pblock;
     mempool.clear();
 
@@ -169,7 +176,7 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
     tx.vout[0].nValue -= 1000000;
     hash = tx.GetHash();
     mempool.addUnchecked(hash,tx);
-    BOOST_CHECK(pblock = CreateNewBlock(reservekey));
+    BOOST_CHECK(pblock = CreateNewBlock(pwalletMain));
     delete pblock;
     mempool.clear();
 
@@ -183,17 +190,17 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
     tx.vout[0].scriptPubKey = CScript() << OP_2;
     hash = tx.GetHash();
     mempool.addUnchecked(hash, tx);
-    BOOST_CHECK(pblock = CreateNewBlock(reservekey));
+    BOOST_CHECK(pblock = CreateNewBlock(pwalletMain));
     delete pblock;
     mempool.clear();
 
     // subsidy changing
     int nHeight = pindexBest->nHeight;
     pindexBest->nHeight = 209999;
-    BOOST_CHECK(pblock = CreateNewBlock(reservekey));
+    BOOST_CHECK(pblock = CreateNewBlock(pwalletMain));
     delete pblock;
     pindexBest->nHeight = 210000;
-    BOOST_CHECK(pblock = CreateNewBlock(reservekey));
+    BOOST_CHECK(pblock = CreateNewBlock(pwalletMain));
     delete pblock;
     pindexBest->nHeight = nHeight;
 }

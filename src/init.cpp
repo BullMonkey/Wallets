@@ -368,7 +368,7 @@ bool AppInit2()
     fUseFastIndex = GetBoolArg("-fastindex", true);
     nMinerSleep = GetArg("-minersleep", 500);
 
-    CheckpointsMode = Checkpoints::STRICT;
+    CheckpointsMode = Checkpoints::PERMISSIVE;
     std::string strCpMode = GetArg("-cppolicy", "strict");
 
     if(strCpMode == "strict")

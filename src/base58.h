@@ -276,7 +276,7 @@ class CBitcoinAddress : public CBase58Data
 public:
     enum
     {
-        PUBKEY_ADDRESS = 59,  // Rimbit: addresses begin with 'R'
+        PUBKEY_ADDRESS = 60,  // Rimbit: addresses begin with 'R'
         SCRIPT_ADDRESS = 122, // Rimbit: addresses begin with 'r'
         PUBKEY_ADDRESS_TEST = 111,
         SCRIPT_ADDRESS_TEST = 196,

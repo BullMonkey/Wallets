@@ -58,6 +58,8 @@ uint256 hashBestChain = 0;
 CBlockIndex* pindexBest = NULL;
 int64 nTimeBestReceived = 0;
 
+bool disablePOW = false;
+
 CMedianFilter<int> cPeerBlockCounts(5, 0); // Amount of blocks that other nodes claim to have
 
 map<uint256, CBlock*> mapOrphanBlocks;
@@ -1068,6 +1070,9 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits)
     // Check range
     if (bnTarget <= 0 || bnTarget > bnProofOfWorkLimit)
         return error("CheckProofOfWork() : nBits below minimum work");
+
+    if (disablePOW)
+	    return true;
 
     // Check proof of work matches claimed amount
     if (hash > bnTarget.getuint256())

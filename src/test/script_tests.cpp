@@ -373,6 +373,8 @@ BOOST_AUTO_TEST_CASE(script_combineSigs)
     CScript pkSingle; pkSingle << keys[0].GetPubKey() << OP_CHECKSIG;
     keystore.AddCScript(pkSingle);
     scriptPubKey.SetDestination(pkSingle.GetID());
+    // This isn't in the bitcoin tests. Is it a mistake with the bitcoin unit tests?
+    txTo.vin[0].prevout.hash = txFrom.GetHash();
     SignSignature(keystore, txFrom, txTo, 0);
     combined = CombineSignatures(scriptPubKey, txTo, 0, scriptSig, empty);
     BOOST_CHECK(combined == scriptSig);
@@ -392,6 +394,7 @@ BOOST_AUTO_TEST_CASE(script_combineSigs)
     // Hardest case:  Multisig 2-of-3
     scriptPubKey.SetMultisig(2, keys);
     keystore.AddCScript(scriptPubKey);
+    txTo.vin[0].prevout.hash = txFrom.GetHash();
     SignSignature(keystore, txFrom, txTo, 0);
     combined = CombineSignatures(scriptPubKey, txTo, 0, scriptSig, empty);
     BOOST_CHECK(combined == scriptSig);
