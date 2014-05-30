@@ -1151,9 +1151,8 @@ void MapPort()
 // The first name is used as information source for addrman.
 // The second name should resolve to a list of seed addresses.
 static const char *strDNSSeed[][2] = {
-    {"rimbit.su", "dnsseed.rimbit.su"},
-    {"rimbit.ru", "dnsseed.rimbit.ru"},
-    {"novaco.in", "dnsseed.novaco.in"},
+    {"rimbitx.com", "seed.rimbitx.com"},
+    {"rimbit.net", "seed.rimbit.net"},
 };
 
 void ThreadDNSAddressSeed(void* parg)
@@ -1224,7 +1223,6 @@ void ThreadDNSAddressSeed2(void* parg)
 
 unsigned int pnSeed[] =
 {
-    0x90EF78BC, 0x33F1C851, 0x36F1C851, 0xC6F5C851,
 };
 
 void DumpAddresses()
