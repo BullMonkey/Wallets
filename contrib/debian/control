@@ -20,8 +20,8 @@ Build-Depends: debhelper,
  libqrencode-dev
 Standards-Version: 3.9.2
 Homepage: http://www.rimbit.su/
-Vcs-Git: git://github.com/CryptoManiac/rimbit.git
-Vcs-Browser: http://github.com/CryptoManiac/rimbit
+Vcs-Git: git://github.com/Rimbit/Wallets
+Vcs-Browser: https://github.com/Rimbit/Wallets
 
 Package: rimbitd
 Architecture: any
