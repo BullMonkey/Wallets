@@ -5,7 +5,7 @@ SetCompressor /SOLID lzma
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 0.3.0
+!define VERSION 1.0.0
 !define COMPANY "Rimbit project"
 !define URL http://www.rimbit.ru/
 
@@ -20,7 +20,7 @@ SetCompressor /SOLID lzma
 !define MUI_STARTMENUPAGE_REGISTRY_KEY ${REGKEY}
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME StartMenuGroup
 !define MUI_STARTMENUPAGE_DEFAULTFOLDER Rimbit
-#!define MUI_FINISHPAGE_RUN $INSTDIR\rimbit-qt.exe
+!define MUI_FINISHPAGE_RUN $INSTDIR\rimbit-qt.exe
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "../share/pixmaps/nsis-wizard.bmp"
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
@@ -45,13 +45,13 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile rimbit-0.3.0-win32-setup.exe
+OutFile rimbit-1.0.0-win32-setup.exe
 InstallDir $PROGRAMFILES\Rimbit
 CRCCheck on
 XPStyle on
 BrandingText " "
 ShowInstDetails show
-VIProductVersion 0.3.0.0
+VIProductVersion 1.0.0.0
 VIAddVersionKey ProductName Rimbit
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "${COMPANY}"
@@ -66,19 +66,14 @@ ShowUninstDetails show
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    #File ../release/rimbit-qt.exe
+    File ../release/rimbit-qt.exe
     File /oname=license.txt ../COPYING
     File /oname=readme.txt ../doc/README_windows.txt
     SetOutPath $INSTDIR\daemon
     File ../src/rimbitd.exe
-    SetOutPath $INSTDIR\src
-    File /r /x *.exe /x *.o ../src\*.*
     SetOutPath $INSTDIR
     WriteRegStr HKCU "${REGKEY}\Components" Main 1
 
-    # Remove old wxwidgets-based-bitcoin executable and locales:
-    #Delete /REBOOTOK $INSTDIR\rimbit.exe
-    #RMDir /r /REBOOTOK $INSTDIR\locale
 SectionEnd
 
 Section -post SEC0001
@@ -87,6 +82,7 @@ Section -post SEC0001
     WriteUninstaller $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     CreateDirectory $SMPROGRAMS\$StartMenuGroup
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$(^Name).lnk" $INSTDIR\rimbit-qt.exe
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall Rimbit.lnk" $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_END
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
@@ -99,10 +95,10 @@ Section -post SEC0001
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoRepair 1
 
     # bitcoin: URI handling disabled for 0.6.0
-    #    WriteRegStr HKCR "bitcoin" "URL Protocol" ""
-    #    WriteRegStr HKCR "bitcoin" "" "URL:Bitcoin"
-    #    WriteRegStr HKCR "bitcoin\DefaultIcon" "" $INSTDIR\bitcoin-qt.exe
-    #    WriteRegStr HKCR "bitcoin\shell\open\command" "" '"$INSTDIR\bitcoin-qt.exe" "$$1"'
+    WriteRegStr HKCR "rimbit" "URL Protocol" ""
+    WriteRegStr HKCR "rimbit" "" "URL:Rimbit"
+    WriteRegStr HKCR "rimbit\DefaultIcon" "" $INSTDIR\rimbit-qt.exe
+    WriteRegStr HKCR "rimbit\shell\open\command" "" '"$INSTDIR\rimbit-qt.exe" "%1"'
 SectionEnd
 
 # Macro for selecting uninstaller sections
@@ -120,19 +116,18 @@ done${UNSECTION_ID}:
 
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
-    #Delete /REBOOTOK $INSTDIR\rimbit-qt.exe
+    Delete /REBOOTOK $INSTDIR\rimbit-qt.exe
     Delete /REBOOTOK $INSTDIR\license.txt
     Delete /REBOOTOK $INSTDIR\readme.txt
     RMDir /r /REBOOTOK $INSTDIR\daemon
-    RMDir /r /REBOOTOK $INSTDIR\src
     DeleteRegValue HKCU "${REGKEY}\Components" Main
 SectionEnd
 
 Section -un.post UNSEC0001
     DeleteRegKey HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
     Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Uninstall Rimbit.lnk"
-    #Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Bitcoin.lnk"
-    #Delete /REBOOTOK "$SMSTARTUP\Bitcoin.lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Rimbit.lnk"
+    Delete /REBOOTOK "$SMSTARTUP\Rimbit.lnk"
     Delete /REBOOTOK $INSTDIR\uninstall.exe
     Delete /REBOOTOK $INSTDIR\debug.log
     Delete /REBOOTOK $INSTDIR\db.log
