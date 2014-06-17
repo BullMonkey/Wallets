@@ -2,6 +2,7 @@
 #include "ui_coincontroldialog.h"
 
 #include "init.h"
+#include "main.h"
 #include "bitcoinunits.h"
 #include "walletmodel.h"
 #include "addresstablemodel.h"
@@ -496,19 +497,10 @@ void CoinControlDialog::updateLabels(WalletModel *model, QDialog* dialog)
         {
             nChange = nAmount - nPayFee - nPayAmount;
             
-            // if sub-cent change is required, the fee must be raised to at least CTransaction::nMinTxFee   
-            if (nPayFee < CENT && nChange > 0 && nChange < CENT)
-            {
-                if (nChange < CENT) // change < 0.01 => simply move all change to fees
-                {
-                    nPayFee = nChange;
-                    nChange = 0;
-                }
-                else
-                {
-                    nChange = nChange + nPayFee - CENT;
-                    nPayFee = CENT;
-                }  
+            // If the change is below the minimum output allowed destroy it
+            if (nChange > 0 && nChange < MIN_TXOUT_AMOUNT) {
+	        nPayFee += nChange;
+	        nChange = 0;
             }
             
             if (nChange == 0)

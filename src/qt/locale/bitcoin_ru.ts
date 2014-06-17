@@ -1070,11 +1070,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>&amp;Главная</translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>Optional transaction fee per kB that helps make sure your transactions are processed quickly. Most transactions are 1 kB. Fee 0.01 recommended.</source>
-        <translation>Опциональная комиссия за каждый КБ транзакции, которая позволяет быть уверенным, что Ваша транзакция будет обработана быстро.  Большинство транзакций занимают 1КБ.  Рекомендуется комиссия 0.01.</translation>
-    </message>
-    <message>
         <location line="+15"/>
         <source>Pay transaction &amp;fee</source>
         <translation>Заплатить ко&amp;миссию</translation>
@@ -1299,11 +1294,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="-107"/>
         <source>Wallet</source>
         <translation>Бумажник</translation>
-    </message>
-    <message>
-        <location line="+136"/>
-        <source>Immature:</source>
-        <translation>Незрелые:</translation>
     </message>
     <message>
         <location line="+13"/>

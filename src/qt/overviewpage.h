@@ -39,8 +39,8 @@ private:
     WalletModel *model;
     qint64 currentBalance;
     qint64 currentStake;
+    qint64 currentConfirmedBalance;
     qint64 currentUnconfirmedBalance;
-    qint64 currentImmatureBalance;
 
     TxViewDelegate *txdelegate;
     TransactionFilterProxy *filter;

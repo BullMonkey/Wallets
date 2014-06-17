@@ -1064,16 +1064,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>&amp;Main</translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>Optional transaction fee per kB that helps make sure your transactions are processed quickly. Most transactions are 1 kB. Fee 0.01 recommended.</source>
-        <translation>Optional transaction fee per kB that helps make sure your transactions are processed quickly. Most transactions are 1 kB. Fee 0.01 recommended.</translation>
-    </message>
-    <message>
-        <location line="+15"/>
-        <source>Pay transaction &amp;fee</source>
-        <translation>Pay transaction &amp;fee</translation>
-    </message>
-    <message>
         <location line="+31"/>
         <source>Automatically start Rimbit after logging in to the system.</source>
         <translation>Automatically start Rimbit after logging in to the system.</translation>
@@ -1293,11 +1283,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="-107"/>
         <source>Wallet</source>
         <translation>Wallet</translation>
-    </message>
-    <message>
-        <location line="+136"/>
-        <source>Immature:</source>
-        <translation>Immature:</translation>
     </message>
     <message>
         <location line="+13"/>

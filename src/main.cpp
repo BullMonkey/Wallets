@@ -524,14 +524,6 @@ int64 CTransaction::GetMinFee(unsigned int nBlockSize, bool fAllowFree,
     unsigned int nNewBlockSize = nBlockSize + nBytes;
     int64 nMinFee = (1 + (int64)nBytes / 1000) * nBaseFee;
 
-    // To limit dust spam, require MIN_TX_FEE/MIN_RELAY_TX_FEE if any output is less than 0.01
-    if (nMinFee < nBaseFee)
-    {
-        BOOST_FOREACH(const CTxOut& txout, vout)
-            if (txout.nValue < CENT)
-                nMinFee = nBaseFee;
-    }
-
     // Raise the price as the block approaches full
     if (nBlockSize != 1 && nNewBlockSize >= MAX_BLOCK_SIZE_GEN/2)
     {
@@ -952,11 +944,12 @@ int64 GetProofOfWorkReward(int nHeight) {
 
 }
 
-const int BLOCKS_PER_DAY = 576;
 
 int64 GetProofOfStakeReward(int64 nCoinAge, int nHeight) {
 
     int interest;
+
+    const int BLOCKS_PER_DAY = (60*60*24) / nStakeTargetSpacing;
 	        
     // Interest is multiple of 5%
 

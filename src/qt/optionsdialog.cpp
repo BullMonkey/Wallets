@@ -126,7 +126,6 @@ void OptionsDialog::setModel(OptionsModel *model)
 void OptionsDialog::setMapper()
 {
     /* Main */
-    mapper->addMapping(ui->transactionFee, OptionsModel::Fee);
     mapper->addMapping(ui->bitcoinAtStartup, OptionsModel::StartAtStartup);
     mapper->addMapping(ui->detachDatabases, OptionsModel::DetachDatabases);
 
@@ -216,11 +215,6 @@ void OptionsDialog::showRestartWarning_Lang()
 
 void OptionsDialog::updateDisplayUnit()
 {
-    if(model)
-    {
-        /* Update transactionFee with the current unit */
-        ui->transactionFee->setDisplayUnit(model->getDisplayUnit());
-    }
 }
 
 void OptionsDialog::handleProxyIpValid(QValidatedLineEdit *object, bool fState)

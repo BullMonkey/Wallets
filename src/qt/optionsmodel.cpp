@@ -46,7 +46,6 @@ void OptionsModel::Init()
     fMinimizeToTray = settings.value("fMinimizeToTray", false).toBool();
     fMinimizeOnClose = settings.value("fMinimizeOnClose", false).toBool();
     fCoinControlFeatures = settings.value("fCoinControlFeatures", false).toBool();
-    nTransactionFee = settings.value("nTransactionFee").toLongLong();
     language = settings.value("language", "").toString();
 
     // These are shared with core Bitcoin; we want
@@ -76,7 +75,7 @@ bool OptionsModel::Upgrade()
     CWalletDB walletdb("wallet.dat");
 
     QList<QString> intOptions;
-    intOptions << "nDisplayUnit" << "nTransactionFee";
+    intOptions << "nDisplayUnit";
     foreach(QString key, intOptions)
     {
         int value = 0;
@@ -161,8 +160,6 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
         }
         case ProxySocksVersion:
             return settings.value("nSocksVersion", 5);
-        case Fee:
-            return QVariant(nTransactionFee);
         case DisplayUnit:
             return QVariant(nDisplayUnit);
         case DisplayAddresses:
@@ -239,11 +236,6 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
             successful = ApplyProxySettings();
         }
         break;
-        case Fee:
-            nTransactionFee = value.toLongLong();
-            settings.setValue("nTransactionFee", nTransactionFee);
-            emit transactionFeeChanged(nTransactionFee);
-            break;
         case DisplayUnit:
             nDisplayUnit = value.toInt();
             settings.setValue("nDisplayUnit", nDisplayUnit);
@@ -275,11 +267,6 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
     emit dataChanged(index, index);
 
     return successful;
-}
-
-qint64 OptionsModel::getTransactionFee()
-{
-    return nTransactionFee;
 }
 
 bool OptionsModel::getCoinControlFeatures()
