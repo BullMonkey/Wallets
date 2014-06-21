@@ -95,8 +95,8 @@ OverviewPage::OverviewPage(QWidget *parent) :
     ui(new Ui::OverviewPage),
     currentBalance(-1),
     currentStake(0),
-    currentUnconfirmedBalance(-1),
     currentConfirmedBalance(-1),
+    currentUnconfirmedBalance(-1),
     txdelegate(new TxViewDelegate()),
     filter(0)
 {
@@ -129,7 +129,7 @@ OverviewPage::~OverviewPage()
     delete ui;
 }
 
-void OverviewPage::setBalance(qint64 balance, confirmedBalance, qint64 unconfirmedBalance, qint64 stake)
+void OverviewPage::setBalance(qint64 balance, qint64 confirmedBalance, qint64 unconfirmedBalance, qint64 stake)
 {
     int unit = model->getOptionsModel()->getDisplayUnit();
     currentBalance = balance;
@@ -208,7 +208,7 @@ void OverviewPage::updateDisplayUnit()
     if(model && model->getOptionsModel())
     {
         if(currentBalance != -1)
-            setBalance(currentBalance, model->getStake(), currentUnconfirmedBalance, currentImmatureBalance);
+            setBalance(currentBalance, currentConfirmedBalance, currentUnconfirmedBalance, model->getStake());
 
         // Update txdelegate->unit with the current unit
         txdelegate->unit = model->getOptionsModel()->getDisplayUnit();

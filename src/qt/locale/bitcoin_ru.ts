@@ -1272,23 +1272,28 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="-170"/>
-        <source>Balance:</source>
-        <translation>Баланс:</translation>
+        <source>Total Balance:</source>
+	<translation>итоговый баланс:</translation>
     </message>
     <message>
         <location line="+29"/>
-        <source>Stake:</source>
-        <translation>Доля:</translation>
-    </message>
-    <message>
-        <location line="+84"/>
-        <source>Number of transactions:</source>
-        <translation>Количество транзакций:</translation>
+        <source>Confirmed:</source>
+        <translation>подтвержденный:</translation>
     </message>
     <message>
         <location line="-55"/>
         <source>Unconfirmed:</source>
         <translation>Не подтверждено:</translation>
+    </message>
+    <message>
+        <location line="+84"/>
+        <source>Unconfirmed Interest:</source>
+        <translation>Неподтвержденные Проценты:</translation>
+    </message>
+    <message>
+        <location line="+84"/>
+        <source>Number of transactions:</source>
+        <translation>Количество транзакций:</translation>
     </message>
     <message>
         <location line="-107"/>

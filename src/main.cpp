@@ -944,7 +944,6 @@ int64 GetProofOfWorkReward(int nHeight) {
 
 }
 
-
 int64 GetProofOfStakeReward(int64 nCoinAge, int nHeight) {
 
     int interest;

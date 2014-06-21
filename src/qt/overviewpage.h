@@ -27,7 +27,7 @@ public:
     void showOutOfSyncWarning(bool fShow);
 
 public slots:
-    void setBalance(qint64 balance, qint64 stake, qint64 unconfirmedBalance, qint64 immatureBalance);
+    void setBalance(qint64 balance, qint64 confirmedBalance, qint64 unconfirmedBalance, qint64 stake);
     void setNumTransactions(int count);
     void unlockWallet();
 

@@ -15,7 +15,7 @@
 WalletModel::WalletModel(CWallet *wallet, OptionsModel *optionsModel, QObject *parent) :
     QObject(parent), wallet(wallet), optionsModel(optionsModel), addressTableModel(0),
     transactionTableModel(0),
-    cachedBalance(0), cachedStake(0), cachedUnconfirmedBalance(0), cachedImmatureBalance(0),
+    cachedBalance(0), cachedConfirmedBalance(0), cachedUnconfirmedBalance(0), cachedStake(0),
     cachedNumTransactions(0),
     cachedEncryptionStatus(Unencrypted),
     cachedNumBlocks(0)
@@ -54,11 +54,6 @@ qint64 WalletModel::getUnconfirmedBalance() const
 qint64 WalletModel::getStake() const
 {
     return wallet->GetStake();
-}
-
-qint64 WalletModel::getImmatureBalance() const
-{
-    return wallet->GetImmatureBalance();
 }
 
 int WalletModel::getNumTransactions() const

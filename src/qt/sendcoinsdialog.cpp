@@ -94,8 +94,7 @@ void SendCoinsDialog::setModel(WalletModel *model)
     }
     if(model && model->getOptionsModel())
     {
-	    // TODO
-        setBalance(model->getBalance(), model->getStake(), model->getUnconfirmedBalance(), model->getImmatureBalance());
+        setBalance(model->getBalance(), model->getConfirmedBalance(), model->getUnconfirmedBalance(), model->getStake());
         connect(model, SIGNAL(balanceChanged(qint64, qint64, qint64, qint64)), this, SLOT(setBalance(qint64, qint64, qint64, qint64)));
         connect(model->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
 
