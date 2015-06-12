@@ -511,8 +511,8 @@ bool CheckStake(CBlock* pblock, CWallet& wallet)
     return true;
 }
 
-void StakeMiner(CWallet *pwallet)
-{
+void StakeMiner(CWallet *pwallet) {
+
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
 
     // Make this thread recognisable as the mining thread
