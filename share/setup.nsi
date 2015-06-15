@@ -45,13 +45,13 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile rimbit-1.0.0-win32-setup.exe
+OutFile rimbit-1.1.1-win32-setup.exe
 InstallDir $PROGRAMFILES\Rimbit
 CRCCheck on
 XPStyle on
 BrandingText " "
 ShowInstDetails show
-VIProductVersion 1.0.0.0
+VIProductVersion 1.1.1.0
 VIAddVersionKey ProductName Rimbit
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "${COMPANY}"
